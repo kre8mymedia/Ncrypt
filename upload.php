@@ -13,7 +13,7 @@ foreach($things as $thing) {
   $file = str_replace(" ", "_", $thing);
   array_push($files, $file);
 }
-print_r($files);
+// print_r($files);
 // die();
 
 $file_links = [];
@@ -32,4 +32,8 @@ if (count($files) > 0) {
   }
 }
 
-print_r($file_links);
+foreach ($file_links as $link) {
+  echo "==============================================================================";
+  echo "\nFile link >> " . $link . "\n";
+  echo "==============================================================================\n";
+} 
