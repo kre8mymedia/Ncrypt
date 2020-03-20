@@ -7,5 +7,8 @@
   },
   "Ncrypt_Index.dapp": {
     "address": "http://bit.ly/decentra"
+  },
+  "decentra_qrcode.png": {
+    "address": "https://bit.ly/decentra_qrcode"
   }
 }
