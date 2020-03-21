@@ -59,7 +59,7 @@ foreach ($addr_obj as $model) {
     $found_json = json_decode($found_contents, true);
 
     // Declare empty decrypted objects 
-    $decrypt_obj = [];
+    $pub_keys = [];
 
     // For each key, value pair in json
     foreach($found_json as $key => $val) {
@@ -67,21 +67,23 @@ foreach ($addr_obj as $model) {
       $decryption = openssl_decrypt($val, $ciphering, $decryption_key, $options, $decryption_iv);
       $val = $decryption;
       // Push the DECRYPTED value to the decrypt_obj array
-      array_push($decrypt_obj, $val);
+      array_push($pub_keys, $val);
     }
 
     // Will print the newly decrypted object values and their INDEX's to console
-    print_r($decrypt_obj);
+    print_r($pub_keys);
 
     // Set decrypt_obj VALUES to their corresponding keys
-    $user['key'] = $decrypt_obj[0];
-    $user['name'] = $decrypt_obj[1];
-    $user['work'] = $decrypt_obj[2];
-    $user['email'] = $decrypt_obj[3];
-    $user['phone'] = $decrypt_obj[4];
+    $obj['owner'] = $pub_keys[0];
+    $obj['street'] = $pub_keys[1];
+    $obj['zip'] = $pub_keys[2];
+    $obj['unit'] = $pub_keys[3];
+    $obj['city'] = $pub_keys[4];
+    $obj['state'] = $pub_keys[5];
+    $obj['year_built'] = $pub_keys[6];
 
     // Print the DECrypted Object
-    print_r($user);
+    print_r($obj);
 
   // If the URL does NOT match this INDEX
   } else {
