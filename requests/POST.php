@@ -1,15 +1,21 @@
 <?php
 
 array_shift($argv);
-$model_name = $argv[0];
 
-if (!(isset($model_name))) {
-  die('>> Model Name was not set!');
+if (!(isset($argv[0]))) {
+  die("\n>> Model Name was not set!\n");
 }
-echo "Model Name: " . $model_name . "\n";
+$model_name = $argv[0];
+echo "\nModel Name: " . $model_name . "\n";
+
+if (!(isset($argv[1]))) {
+  die("\n>> Please Enter a URL as second cli argument\n");
+}
+$POST_URL = $argv[1];
+echo "Post URL: " . $POST_URL . "\n";
 
 // Retrieve Data Schema
-$data = file_get_contents('https://siasky.net/AAA7ynizrP-Il8Kxd7dMEWPPlkMrppLpFxj30bLG3eMDAg');
+$data = file_get_contents($POST_URL);
 // Decode into readable json
 $user = json_decode($data, true);
 // Outputs Empty JSON model
