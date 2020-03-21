@@ -12,7 +12,7 @@ if (!(isset($argv[1]))) {
 $data = file_get_contents($url);
 // Decode into json
 $obj = json_decode($data, true);
-echo "\nRESPONSE OBJECT\n";
+echo "\nObject @ URL\n";
 // Print out returned ENCRYPTED object
 print_r($obj) . "\n";
 
@@ -60,27 +60,46 @@ foreach ($addr_obj as $model) {
 
     // Declare empty decrypted objects 
     $pub_keys = [];
+    $counter = 0;
 
     // For each key, value pair in json
     foreach($found_json as $key => $val) {
-      // Decrypt the VALUE
-      $decryption = openssl_decrypt($val, $ciphering, $decryption_key, $options, $decryption_iv);
-      $val = $decryption;
-      // Push the DECRYPTED value to the decrypt_obj array
-      array_push($pub_keys, $val);
+
+      if (gettype($val) == 'string') {
+        echo "[" . $counter . "] String value: " . $val . "\n";
+        // Decrypt the VALUE
+        $decryption = openssl_decrypt($val, $ciphering, $decryption_key, $options, $decryption_iv);
+        $val = $decryption;
+        // Push the DECRYPTED value to the decrypt_obj array
+        array_push($pub_keys, $val);
+        $counter++;
+      }
+
+      if (gettype($val) == 'array') {
+        echo "\n[" .$key."] Array\n";
+
+        foreach ($val as $arr_key => $arr_val) {
+          echo "[" . $counter . "] Array value: " . $arr_val . "\n";
+          // Decrypt the VALUE
+          $decryption = openssl_decrypt($arr_val, $ciphering, $decryption_key, $options, $decryption_iv);
+          $nest_val = $decryption;
+          // Push the DECRYPTED value to the decrypt_obj array
+          array_push($pub_keys, $nest_val);
+          $counter++;
+        }
+      }
     }
 
     // Will print the newly decrypted object values and their INDEX's to console
     print_r($pub_keys);
 
     // Set decrypt_obj VALUES to their corresponding keys
-    $obj['owner'] = $pub_keys[0];
-    $obj['street'] = $pub_keys[1];
-    $obj['zip'] = $pub_keys[2];
-    $obj['unit'] = $pub_keys[3];
-    $obj['city'] = $pub_keys[4];
-    $obj['state'] = $pub_keys[5];
-    $obj['year_built'] = $pub_keys[6];
+    $obj['name'] = $pub_keys[0];
+    $obj['ship_address'] = $pub_keys[1];
+    $obj['bill_address'] = $pub_keys[2];
+
+    $obj['contacts']['primary'] = $pub_keys[3];
+    $obj['contacts']['secondary'] = $pub_keys[4];
 
     // Print the DECrypted Object
     print_r($obj);

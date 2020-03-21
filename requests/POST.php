@@ -12,7 +12,7 @@ if (!(isset($argv[1]))) {
   die("\n>> Insert Model Schema URL as second Arg\n");
 }
 $POST_URL = $argv[1];
-echo "Post URL: " . $POST_URL . "\n";
+echo "Schema URL: " . $POST_URL . "\n";
 
 // Retrieve Data Schema
 $data = file_get_contents($POST_URL);
@@ -40,35 +40,53 @@ $iv_leng = openssl_cipher_iv_length($ciphering);
 $encryption_iv = '1234567891011121';
 
 // insert data into model
-$obj['owner'] = "Ryan Eggleston";
-$obj['street'] = '13840 E. Lupine Ave.';
-$obj['zip'] = '85259';
-$obj['unit'] = '1234';
-$obj['city'] = 'Scottsdale';
-$obj['state'] = 'AZ';
-$obj['year_built'] = '2000';
+$obj['name'] = "TMGcore";
+$obj['ship_address'] = '6815 Communications Pkwy.';
+$obj['bill_address'] = '85259';
+$obj['contacts']['primary'] = "Ryan Eggleston";
+$obj['contacts']['secondary'] = "Taylor Monnig";
 
 // Outputs the new user model
 print_r($obj);
 
 // Declare empty array to store public facing keys
 $pub_keys = [];
-
+$counter = 0;
 // Foreach piece of data in model Encrypt then push to pub_keys array
 foreach($obj as $key => $val) {
-  $encryption = openssl_encrypt($val, $ciphering, $encryption_key, $options, $encryption_iv);
-  $val = $encryption;
-  array_push($pub_keys, $val);
+  
+  if (gettype($val) == 'string') {
+    echo "[" . $counter . "] " . $key . " => " . $val . "\n";
+    $encryption = openssl_encrypt($val, $ciphering, $encryption_key, $options, $encryption_iv);
+    $val = $encryption;
+    array_push($pub_keys, $val);
+    $counter++;
+  }
+
+  if (gettype($val) == 'array') {
+
+    echo "\n[" .$key."] Array\n";
+
+    foreach ($val as $arr_key => $arr_val) {
+      echo "[" . $counter . "] Array value: " . $arr_val . "\n";
+      $encryption = openssl_encrypt($arr_val, $ciphering, $encryption_key, $options, $encryption_iv);
+      $nest_val = $encryption;
+      array_push($pub_keys, $nest_val);
+      $counter++;
+    }
+  }
 }
 
+print_r($pub_keys);
+
 // Replace non-encrypted data with encrypted data in object
-$obj['owner'] = $pub_keys[0];
-$obj['street'] = $pub_keys[1];
-$obj['zip'] = $pub_keys[2];
-$obj['unit'] = $pub_keys[3];
-$obj['city'] = $pub_keys[4];
-$obj['state'] = $pub_keys[5];
-$obj['year_built'] = $pub_keys[6];
+$obj['name'] = $pub_keys[0];
+$obj['ship_address'] = $pub_keys[1];
+$obj['bill_address'] = $pub_keys[2];
+
+$obj['contacts']['primary'] = $pub_keys[3];
+$obj['contacts']['secondary'] = $pub_keys[4];
+
 
 // set the encrypted as a new_user variable
 $new_obj = json_encode($obj);
@@ -91,6 +109,7 @@ echo "password: " . $encryption_key . "\n";
 echo "==============================================================================\n";
 
 $t = time();
+echo "Timestamp: " . $t . "\n";
 $address_book = file_get_contents("json/address_book.json");
 
 

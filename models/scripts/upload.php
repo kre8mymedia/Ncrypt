@@ -22,7 +22,7 @@ foreach($things as $thing) {
 $file_links = [];
 
 if (count($files) > 0) {
-  sleep(3);
+  // sleep(3);
   foreach ($files as $file) { 
 
     $ext = pathinfo($file);
