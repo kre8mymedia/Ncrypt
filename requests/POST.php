@@ -13,7 +13,7 @@ if (!(isset($argv[1]))) {
 }
 $POST_URL = $argv[1];
 echo "Schema URL: " . $POST_URL . "\n";
-
+echo "++ Initial Schema \n";
 // Retrieve Data Schema
 $data = file_get_contents($POST_URL);
 // Decode into readable json
@@ -40,12 +40,22 @@ $iv_leng = openssl_cipher_iv_length($ciphering);
 $encryption_iv = '1234567891011121';
 
 // insert data into model
-$obj['name'] = "TMGcore";
-$obj['ship_address'] = '6815 Communications Pkwy.';
-$obj['bill_address'] = '85259';
-$obj['contacts']['primary'] = "Ryan Eggleston";
-$obj['contacts']['secondary'] = "Taylor Monnig";
+$obj['first_name'] = "Jamie";
+$obj['last_name'] = 'Roger';
+$obj['current_address'] = '11291 E. Lupine Ave';
+$obj['social_security'] = "324-34-5435";
+$obj['phone_number'] = "553-253-5322";
+$obj['bank']['name'] = "Chase";
+$obj['bank']['account_number'] = "40239209920392392";
+$obj['bank']['routing_number'] = "50223049802";
+$obj['job']['industry'] = "Banking";
+$obj['job']['name'] = "Chase";
+$obj['job']['title'] = "Head of Banking";
+$obj['job']['years_at_company'] = 70;
+// $obj['job']['employees']['manager'] = "Henry Tompson";
+// $obj['job']['employees']['developer'] = "Jimmy Josh";
 
+echo "++ User Added Object Schema (Non_Ncrpted) \n";
 // Outputs the new user model
 print_r($obj);
 
@@ -56,6 +66,7 @@ $counter = 0;
 foreach($obj as $key => $val) {
   
   if (gettype($val) == 'string') {
+    echo "\n++ One Dimensional [Key, Value] Pair\n";
     echo "[" . $counter . "] " . $key . " => " . $val . "\n";
     $encryption = openssl_encrypt($val, $ciphering, $encryption_key, $options, $encryption_iv);
     $val = $encryption;
@@ -64,8 +75,8 @@ foreach($obj as $key => $val) {
   }
 
   if (gettype($val) == 'array') {
-
-    echo "\n[" .$key."] Array\n";
+    echo "\n++ Arrays Follow by their Values\n";
+    echo "[" .$key."] Array\n";
 
     foreach ($val as $arr_key => $arr_val) {
       echo "[" . $counter . "] Array value: " . $arr_val . "\n";
@@ -77,17 +88,27 @@ foreach($obj as $key => $val) {
   }
 }
 
+echo "\n++ Encrypted Objects Array\n";
 print_r($pub_keys);
 
 // Replace non-encrypted data with encrypted data in object
-$obj['name'] = $pub_keys[0];
-$obj['ship_address'] = $pub_keys[1];
-$obj['bill_address'] = $pub_keys[2];
+$obj['first_name'] = $pub_keys[0];
+$obj['last_name'] = $pub_keys[1];
+$obj['current_address'] = $pub_keys[2];
+$obj['social_security'] = $pub_keys[3];
+$obj['phone_number'] = $pub_keys[4];
+$obj['bank']['name'] = $pub_keys[5];
+$obj['bank']['account_number'] = $pub_keys[6];
+$obj['bank']['routing_number'] = $pub_keys[7];
+$obj['job']['industry'] = $pub_keys[8];
+$obj['job']['name'] = $pub_keys[9];
+$obj['job']['title'] = $pub_keys[10];
+$obj['job']['years_at_company'] =$pub_keys[11];
+// $obj['job']['employees']['manager'] = $pub_keys[12];
+// $obj['job']['employees']['developer'] = $pub_keys[13];
 
-$obj['contacts']['primary'] = $pub_keys[3];
-$obj['contacts']['secondary'] = $pub_keys[4];
 
-
+echo "\n++ Encryted Values added to Schema\n";
 // set the encrypted as a new_user variable
 $new_obj = json_encode($obj);
 // Output the array to be uploaded
@@ -101,15 +122,18 @@ $json = json_decode($command, true);
 $skylink = $json['skylink'];
 $url = 'https://siasky.net/' . $skylink;
 
+$t = time();
+echo "\nTimestamp: " . $t . "\n";
+
 // Output the URL of the Filfe and the Encryption Key Used
-echo "\n==============================================================================\n";
-echo "Model Name: " . $model_name . "\n";
+echo "\n++ Added this config to address_book.json locally\n";
+echo "==============================================================================\n";
+echo "Model Name: " . $t ."_". $model_name . "\n";
 echo "Address: " . $url . "\n";
 echo "password: " . $encryption_key . "\n";
 echo "==============================================================================\n";
 
-$t = time();
-echo "Timestamp: " . $t . "\n";
+
 $address_book = file_get_contents("json/address_book.json");
 
 

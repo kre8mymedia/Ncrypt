@@ -1,0 +1,22 @@
+{
+  "first_name": "",
+  "last_name": "",
+  "current_address": "",
+  "social_security": "",
+  "phone_number": "",
+  "bank": {
+    "name": "",
+    "account_number": "",
+    "routing_number": ""
+  },
+  "job": {
+    "industry": "",
+    "name": "",
+    "title": "",
+    "years_at_company": "",
+    "employees": {
+      "manager": "",
+      "developer": ""
+    }
+  }
+}
