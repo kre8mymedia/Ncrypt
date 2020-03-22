@@ -2,10 +2,18 @@
 
 // Will not trigger unless argument supplied
 if (!(isset($argv[1]))) {
+  die("\n>> Please enter Model Schema as first argv\n");
+} else {
+  // First argument is the GET url
+  $model_schema = $argv[1];
+}
+
+// Will not trigger unless argument supplied
+if (!(isset($argv[2]))) {
   die("\n>> Please enter URL as argv\n");
 } else {
   // First argument is the GET url
-  $url = $argv[1];
+  $url = $argv[2];
 }
 
 // Make request to get contents
@@ -94,21 +102,9 @@ foreach ($addr_obj as $model) {
     print_r($pub_keys);
 
     // Set decrypt_obj VALUES to their corresponding keys
-    $obj['first_name'] = $pub_keys[0];
-    $obj['last_name'] = $pub_keys[1];
-    $obj['current_address'] = $pub_keys[2];
-    $obj['social_security'] = $pub_keys[3];
-    $obj['phone_number'] = $pub_keys[4];
-    $obj['bank']['name'] = $pub_keys[5];
-    $obj['bank']['account_number'] = $pub_keys[6];
-    $obj['bank']['routing_number'] = $pub_keys[7];
-    $obj['job']['industry'] = $pub_keys[8];
-    $obj['job']['name'] = $pub_keys[9];
-    $obj['job']['title'] = $pub_keys[10];
-    $obj['job']['years_at_company'] =$pub_keys[11];
-    // $obj['job']['employees']['manager'] = $pub_keys[12];
-    // $obj['job']['employees']['developer'] = $pub_keys[13];
 
+    include "get_models/" . $model_schema . ".php";
+    
     // Print the DECrypted Object
     print_r($obj);
 

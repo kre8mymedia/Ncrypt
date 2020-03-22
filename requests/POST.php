@@ -3,15 +3,21 @@
 array_shift($argv);
 
 if (!(isset($argv[0]))) {
-  die("\n>> Enter a name for this Model as first \n");
+  die("\n>> Enter a name for this Model as first arg\n");
 }
 $model_name = $argv[0];
 echo "\nModel Name: " . $model_name . "\n";
 
 if (!(isset($argv[1]))) {
+  die("\n>> Enter a model schema as second arg arg\n");
+}
+$model_schema = $argv[1];
+echo "\nModel Schema: " . $model_schema . "\n";
+
+if (!(isset($argv[2]))) {
   die("\n>> Insert Model Schema URL as second Arg\n");
 }
-$POST_URL = $argv[1];
+$POST_URL = $argv[2];
 echo "Schema URL: " . $POST_URL . "\n";
 echo "++ Initial Schema \n";
 // Retrieve Data Schema
@@ -39,21 +45,8 @@ $ciphering = "AES-128-CTR";
 $iv_leng = openssl_cipher_iv_length($ciphering);
 $encryption_iv = '1234567891011121';
 
-// insert data into model
-$obj['first_name'] = "Jamie";
-$obj['last_name'] = 'Roger';
-$obj['current_address'] = '11291 E. Lupine Ave';
-$obj['social_security'] = "324-34-5435";
-$obj['phone_number'] = "553-253-5322";
-$obj['bank']['name'] = "Chase";
-$obj['bank']['account_number'] = "40239209920392392";
-$obj['bank']['routing_number'] = "50223049802";
-$obj['job']['industry'] = "Banking";
-$obj['job']['name'] = "Chase";
-$obj['job']['title'] = "Head of Banking";
-$obj['job']['years_at_company'] = 70;
-// $obj['job']['employees']['manager'] = "Henry Tompson";
-// $obj['job']['employees']['developer'] = "Jimmy Josh";
+// // insert data into model
+include "post_models/". $model_schema . ".php";
 
 echo "++ User Added Object Schema (Non_Ncrpted) \n";
 // Outputs the new user model
@@ -91,22 +84,9 @@ foreach($obj as $key => $val) {
 echo "\n++ Encrypted Objects Array\n";
 print_r($pub_keys);
 
-// Replace non-encrypted data with encrypted data in object
-$obj['first_name'] = $pub_keys[0];
-$obj['last_name'] = $pub_keys[1];
-$obj['current_address'] = $pub_keys[2];
-$obj['social_security'] = $pub_keys[3];
-$obj['phone_number'] = $pub_keys[4];
-$obj['bank']['name'] = $pub_keys[5];
-$obj['bank']['account_number'] = $pub_keys[6];
-$obj['bank']['routing_number'] = $pub_keys[7];
-$obj['job']['industry'] = $pub_keys[8];
-$obj['job']['name'] = $pub_keys[9];
-$obj['job']['title'] = $pub_keys[10];
-$obj['job']['years_at_company'] =$pub_keys[11];
-// $obj['job']['employees']['manager'] = $pub_keys[12];
-// $obj['job']['employees']['developer'] = $pub_keys[13];
 
+// Define what model to use above data entry schema (above)
+include "get_models/" . $model_schema . ".php";
 
 echo "\n++ Encryted Values added to Schema\n";
 // set the encrypted as a new_user variable
