@@ -3,5 +3,5 @@
 $model_schema = "single_address";
 
 // Single address // key is unncessary in this but used in context to desribe link
-$obj['address'] = 'https://siasky.net/BAAb_CaJ3N2H5fMrXUHVxoPWI3ZDPpF9rzZHgQBzQfRlmg';
-$obj['key'] = 'QR_code For Contract';
+$obj['address'] = 'https://siasky.net/AABeFpCsHSG0rUNg8sweYztnuDpg6R_7ZKwCiR3p5-wgfw';
+$obj['key'] = 'DB0zmjX8TJfu0qVvdaL1QEfcME4ikPGh';
