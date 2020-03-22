@@ -1,5 +1,11 @@
 <?php
 
+
+##############################################
+#     Takes in Args of model_schmea & url    #
+#           GET(model_schema, url)           #
+##############################################
+
 // Will not trigger unless argument supplied
 if (!(isset($argv[1]))) {
   die("\n>> Please enter Model Schema as first argv\n");
