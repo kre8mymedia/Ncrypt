@@ -1,6 +1,4 @@
 <?php
-
-
 ##############################################
 #     Takes in Args of model_schmea & url    #
 #           GET(model_schema, url)           #
