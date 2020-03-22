@@ -1,5 +1,5 @@
 <?php
-// What schema are we using to define our model?
+// 2-Dimension Identity Model
 $model_schema = "2D_identity";
 
 // insert data into model

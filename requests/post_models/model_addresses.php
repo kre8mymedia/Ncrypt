@@ -1,5 +1,5 @@
 <?php
-// What schema are we using to define our model?
+// Model Routes Model
 $model_schema = "model_addresses";
 
 // Copy the model structure from your template and enter contents
