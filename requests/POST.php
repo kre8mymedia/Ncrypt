@@ -1,4 +1,5 @@
 <?php
+$start = microtime(true);
 ##################################################################
 #     Takes in Args of model_name | model_schema | model_url     #
 #               POST(name, model_schema, model_url)              #
@@ -100,14 +101,13 @@ print_r(json_decode($new_obj, true));
 // Push the contents into a text file to be exec'd below
 $data = file_put_contents('dump.txt', $new_obj);
 
+$t = time();
+
 // Uploads new encrypted data object to storage
 $command = shell_exec('curl -X POST "https://siasky.net/skynet/skyfile" -F file=@dump.txt');
 $json = json_decode($command, true);
 $skylink = $json['skylink'];
 $url = 'https://siasky.net/' . $skylink;
-
-$t = time();
-echo "\nTimestamp: " . $t . "\n";
 
 // Output the URL of the Filfe and the Encryption Key Used
 echo "\n++ Added this config to address_book.json locally\n";
@@ -120,7 +120,6 @@ echo "==========================================================================
 
 $address_book = file_get_contents("json/address_book.json");
 
-
   $new_book = str_replace('}
 }', '},
   "' . $t . "_" . $model_name .'": {
@@ -129,5 +128,11 @@ $address_book = file_get_contents("json/address_book.json");
   }
 }', $address_book);
 
-  // echo $new_book . "\n";
-  echo "Length: " . file_put_contents("json/address_book.json", $new_book) . "\n";
+
+// echo $new_book . "\n";
+echo "length: " . file_put_contents("json/address_book.json", $new_book) . "\n";
+echo "timestamp: " . $t . "\n";
+
+$end = microtime(true);
+$time_length = round($end - $start, 5);
+echo "runtime: ". $time_length . "\n";

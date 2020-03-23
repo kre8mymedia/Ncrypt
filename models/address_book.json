@@ -1,13 +1,4 @@
 {
-  "1584599236_services.html": {
-    "address": "https://siasky.net/OABPiyCSRnI0sLfnGQQXhbQ6IVmthAs6y7u9_fujxkYV6A"
-  },
-  "1584599327_about.html": {
-    "address": "https://siasky.net/MAC9cbsXtupqxkV-G1WSf1NQnOh1MSsvAUzyH9-w24Jv5w"
-  },
-  "1584599327_blog.html": {
-    "address": "https://siasky.net/MACICHJ4sDCbhpTu_VeCGaWBb0BHrfBYCKZ3h2_AzzOscw"
-  },
   "1584753358_company.txt": {
     "address": "https://siasky.net/AADXlkO-UJpT5vBfZ51bLnQh_yp8WxBP6hZL7zVrWylqzg"
   },
@@ -22,5 +13,11 @@
   },
   "1584895497_address.txt": {
     "address": "https://siasky.net/AADNU8GgqFVjVqt57kDq9c58gOwrEzTRHwkWkFoUv5_lRw"
+  },
+  "1584919031_car.txt": {
+    "address": "https://siasky.net/AADY2bo5-n6OxLMl548QSVfvVFeGNadB4zZwlb5vtm5oYA"
+  },
+  "1584931579_identity.2D.txt": {
+    "address": "https://siasky.net/AAD0gQYwI-OXpKwOT2mRZm2Au3O7w5rd__pgxEvHsd98Hw"
   }
 }

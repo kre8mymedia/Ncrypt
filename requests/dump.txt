@@ -1,1 +1,1 @@
-{"owner":"tgwo6fJUsyBn5+jIZLui","street":"zVBxteI+k2ZC6vvdcrjsVT\/Z5Dhw","zip":"xFZ7t+I=","unit":"zVV8","city":"rAsm5Lx3rg==","state":"vTk=","year_built":"zlN5tQ=="}
+{"first_name":"hjCrrtk=","last_name":"nj6hos4=","current_address":"\/WD0\/o3zCPx3BixynkVg5Klq6w==","social_security":"\/2Py6o\/nYOdjeWw=","phone_number":"+WT16o7mfv9ieWsw","bank":{"name":"jzmntNk=","account_number":"+GH09IXhfetueGkxzhk2\/do=","routing_number":"+WH09Y\/jeetvems="},"job":{"industry":"jjCorNW9Kg==","name":"jzmntNk=","title":"hDSno5y8K\/IVKzdpnkVi","years_at_company":"+2E="}}

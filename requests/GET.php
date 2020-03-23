@@ -4,6 +4,10 @@
 #           GET(model_schema, url)           #
 ##############################################
 
+// Track script execution time
+$start = microtime(true);
+$t = time();
+
 // Will not trigger unless argument supplied
 if (!(isset($argv[1]))) {
   die("\n>> Please enter Model Schema as first argv\n");
@@ -119,6 +123,11 @@ foreach ($addr_obj as $model) {
   // Increment Index
   $i++;
 }
+
+$end = microtime(true);
+$time_length = round($end - $start, 5);
+echo "\ntimestamp: " . $t . "\n";
+echo "runtime: ". $time_length . "\n";
 
 
 
